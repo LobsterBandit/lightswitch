@@ -6,7 +6,7 @@
   "shutdownAction": "none",
 
   "workspaceFolder": "/workspace",
-  "workspaceMount": "source=lightswitch-workspace,target=/workspace,type=volume",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
 
   "mounts": [
     "source=lightswitch-vscode-server,target=/home/gopher/.vscode-server/extensions,type=volume",
