@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"fmt"
@@ -10,26 +10,33 @@ import (
 
 var cfgFile string
 
-// rootCmd represents the base command when called without any subcommands.
-var rootCmd = &cobra.Command{
-	Use:   "lightswitch",
-	Short: "Manage Hue devices",
-	Long:  `Manage Hue devices from your terminal`,
+var Version string
+
+// lightswitch represents the base command when called without any subcommands.
+var lightswitch = &cobra.Command{
+	Use:     "lightswitch",
+	Short:   "Manage Hue devices",
+	Long:    `Manage Hue devices from your terminal`,
+	Run:     runGui,
+	Version: Version,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	cobra.CheckErr(rootCmd.Execute())
+// This is called by main.main(). It only needs to happen once to the lightswitch.
+func execute() {
+	cobra.CheckErr(lightswitch.Execute())
 }
 
-func init() {
+func runLightswitch() {
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.lightswitch)")
+	lightswitch.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.lightswitch)")
+
+	// run the app
+	execute()
 }
 
 // initConfig reads in config file and ENV variables if set.
