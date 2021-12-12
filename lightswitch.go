@@ -17,7 +17,7 @@ var lightswitch = &cobra.Command{
 	Use:     "lightswitch",
 	Short:   "Manage Hue devices",
 	Long:    `Manage Hue devices from your terminal`,
-	Run:     runGui,
+	Run:     initGui().run,
 	Version: Version,
 }
 

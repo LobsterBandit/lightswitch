@@ -2,35 +2,37 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/rivo/tview"
+	"io"
 )
 
-func connect(logs *tview.TextView, bridge string) string {
-	fmt.Fprintf(logs, "[green](bridge:connect)[white] Connecting to bridge %s...\n", bridge)
-	fmt.Fprintf(logs, "[green](bridge:connect)[white] Successfully connected to bridge %s!\n", bridge)
-
+func connect(logger io.Writer, bridge string) string {
+	fmt.Fprintf(logger, "[green](bridge:connect)[white] Connecting to bridge %s...\n", bridge)
+	fmt.Fprintf(logger, "[green](bridge:connect)[white] Successfully connected to bridge %s!\n", bridge)
 	return bridge
 }
 
-func discoverGroups(app *tview.Application, logs *tview.TextView, list *tview.List, bridge string) {
-	fmt.Fprintf(logs, "[green](groups:discover)[white] Discovering groups on %s...\n", bridge)
-	app.QueueUpdateDraw(func() {
-		list.AddItem("Bedroom", "", 0, nil)
-		list.AddItem("Living Room", "", 0, nil)
-		list.AddItem("Office", "", 0, nil)
-	})
-	fmt.Fprintf(logs, "[green](groups:discover)[white] Completed group discovery on %s\n", bridge)
+func discoverGroups(logger io.Writer, bridge string) []string {
+	fmt.Fprintf(logger, "[green](groups:discover)[white] Discovering groups on %s...\n", bridge)
+	groups := []string{
+		"Bedroom",
+		"Closet",
+		"Kitchen",
+		"Living Room",
+		"Office",
+	}
+	fmt.Fprintf(logger, "[green](groups:discover)[white] Completed group discovery on %s\n", bridge)
+	return groups
 }
 
-func discoverLights(app *tview.Application, logs *tview.TextView, list *tview.List, bridge string) {
-	fmt.Fprintf(logs, "[green](lights:discover)[white] Discovering lights on %s...\n", bridge)
-	app.QueueUpdateDraw(func() {
-		list.AddItem("Light 1", "", 0, nil)
-		list.AddItem("Light 2", "", 0, nil)
-		list.AddItem("Light 3", "", 0, nil)
-		list.AddItem("Light 4", "", 0, nil)
-		list.AddItem("Light 5", "", 0, nil)
-	})
-	fmt.Fprintf(logs, "[green](lights:discover)[white] Completed light discovery on %s\n", bridge)
+func discoverLights(logger io.Writer, bridge string) []string {
+	fmt.Fprintf(logger, "[green](lights:discover)[white] Discovering lights on %s...\n", bridge)
+	lights := []string{
+		"Light 1",
+		"Light 2",
+		"Light 3",
+		"Light 4",
+		"Light 5",
+	}
+	fmt.Fprintf(logger, "[green](lights:discover)[white] Completed light discovery on %s\n", bridge)
+	return lights
 }
